@@ -2,71 +2,82 @@
 
 Last updated: 2026-03-14
 Project: APDWORLD
-Goal: Nostalgic, funny personal poster site with Frutiger Aero aesthetic.
+Goal: Nostalgic, funny personal poster site with an Aero-style archive OS experience.
 
-## Product Vision
-- Personal poster-style website showcasing hobbies, projects, interests, and art.
-- Faux desktop OS metaphor where sections open as app windows/files.
-- Visual direction: Frutiger Aero (glossy UI, saturation, nature gradients, glass blur, rounded skeuomorphic surfaces).
+## Product Direction
+- Shift complete: from single dashboard-style poster to multi-page, nested-folder Archive OS.
+- UX metaphor: desktop explorer with sidebar hierarchy and content panel navigation.
+- Visual direction: Frutiger Aero-inspired glass UI in a green-blue palette (not black).
 
 ## Tech Stack
 - Framework: React + Vite
-- Styling: Modern CSS (variables, gradients, backdrop-filter blur)
-- Deployment target: GitHub Pages
+- Routing: react-router-dom (nested routes)
+- Styling: modern CSS (backdrop-filter, gradients, CSS variables, custom scrollbars)
+- Deployment target: GitHub Pages via gh-pages
 
-## Architecture
-- Component-based UI
-  - `AeroWindow`: reusable glossy window container with controls
-  - `AeroDock`: launcher dock for app windows
-  - `DesktopIcon`: faux desktop shortcut icon/button
-  - `WidgetCard`: reusable content panel block
-- State-driven interactivity (React hooks)
-  - Open / close / minimize / focus window actions
-  - Z-index management for active window stacking
+## Current Architecture
+- Centralized route configuration in src/routes.jsx
+- Router entry:
+  - BrowserRouter in src/main.jsx
+  - useRoutes in src/App.jsx
+- Shell layout:
+  - MainLayout with fixed 300px sidebar and main content area
+  - Sidebar nav hierarchy:
+    - Computer: Home (Sitemap), Blog (Ram Says)
+    - Folders: Hobbies i suck at.msi, Projects.exe, Art we Love.jpg, Music gives you life.mp4
+- Main content container:
+  - AeroWindow now functions as archive content frame
+  - Includes breadcrumb bar (Computer > ...)
 
-## Current Progress
-### Completed
-- Vite React app scaffold files created.
-- GitHub Pages deployment scripts added via `gh-pages` package.
-- Vite base configured for static hosting (`base: './'`).
-- Full Frutiger Aero themed UI implemented:
-  - Sky/nature gradient background and sun flare overlays
-  - Glassmorphism windows (backdrop blur, glossy chrome title bars)
-  - Rounded controls and dock interactions
-  - Responsive mobile/desktop behavior
-- Content windows implemented for:
-  - Hobbies
-  - Projects
-  - Interests
-  - Art
-- README updated with local run/build/deploy instructions.
+## Routing Structure
+- /
+- /blog
+- /hobbies
+- /hobbies/:subId
+- /projects
+- /art
+- /music
 
-### Workspace Files Added/Updated
-- `package.json`
-- `vite.config.js`
-- `index.html`
-- `.gitignore`
-- `src/main.jsx`
-- `src/App.jsx`
-- `src/index.css`
-- `src/components/AeroWindow.jsx`
-- `src/components/AeroDock.jsx`
-- `src/components/DesktopIcon.jsx`
-- `src/components/WidgetCard.jsx`
-- `README.md`
+## Component Progress
+### Refactored / Added
+- AeroWindow updated to content container + breadcrumb bar
+- FolderView added as icon-grid folder renderer with useParams-driven sub-folder details
+- BlogCarousel added as horizontal, scrollable Ram Says widget with glossy droplet cards
+
+### Pages Added
+- HomePage (sitemap)
+- BlogPage (carousel)
+- HobbiesPage (nested folder entry)
+- ProjectsPage
+- ArtPage
+- MusicPage
+
+### Data and Layout
+- archiveData.js added for folder/computer route metadata and hobbies sub-folder content
+- MainLayout.jsx added to orchestrate sidebar, breadcrumbing, and Outlet rendering
+
+## Visual Implementation Status (Green-Blue Aero)
+- Background uses fixed grass wallpaper asset from src/assets/wallpapers/grass-aero.svg
+- Glass containers implemented for sidebar and main panel with blur and glossy top gradient
+- Typography uses Segoe UI/Frutiger stack with subtle header glow/text-shadow
+- Scrollbars styled as thin glossy green rounded pills
+- Responsive behavior added for narrow viewports
+
+## Dependency and Config Status
+- package.json includes react-router-dom and gh-pages scripts
+- vite.config.js uses base: './' for static hosting compatibility
 
 ## Known Status
-- Source files are present and no editor diagnostics were reported.
-- Terminal output in this environment returned empty results during install/build attempts, so runtime/build execution logs are not yet verified from terminal output.
+- Editor diagnostics currently report no file errors in refactored route/layout/component files.
+- Terminal in this environment previously returned empty output for install/build commands, so command logs are not yet captured here.
 
-## Next Steps
-1. Run `npm install`.
-2. Run `npm run dev` and review in browser.
-3. Run `npm run build` to verify production bundle.
-4. Run `npm run deploy` to publish to GitHub Pages.
+## Remaining Validation
+1. Run npm install
+2. Run npm run dev and verify all routes and nested hobbies paths
+3. Run npm run build
+4. Run npm run deploy
 
-## Optional Enhancements
-- Draggable windows for stronger desktop realism.
-- Persistent window state using localStorage.
-- Add app-style sounds/hover effects for extra nostalgia.
-- Replace placeholder personal copy with final real content/assets.
+## Suggested Next Enhancements
+- Add draggable/resizable faux windows while preserving route state
+- Persist last-opened route and sidebar state in localStorage
+- Replace placeholder folder content with final personal media and copy

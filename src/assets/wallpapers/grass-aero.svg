@@ -1,0 +1,28 @@
+<svg width="2400" height="1400" viewBox="0 0 2400 1400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#62d2ff"/>
+      <stop offset="50%" stop-color="#1f9de7"/>
+      <stop offset="100%" stop-color="#0b6cb1"/>
+    </linearGradient>
+    <linearGradient id="grass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#57dc70"/>
+      <stop offset="100%" stop-color="#1d8f47"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="0.85" cy="0.14" r="0.22">
+      <stop offset="0%" stop-color="#f7ffcc" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#f7ffcc" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="2400" height="1400" fill="url(#sky)"/>
+  <rect y="760" width="2400" height="640" fill="url(#grass)"/>
+  <ellipse cx="2040" cy="200" rx="420" ry="240" fill="url(#sun)"/>
+
+  <g opacity="0.4" stroke="#9dffc1" stroke-width="3">
+    <path d="M60 960 C220 840, 380 1080, 560 930"/>
+    <path d="M520 1020 C680 880, 840 1130, 1040 960"/>
+    <path d="M1080 980 C1260 830, 1480 1120, 1700 950"/>
+    <path d="M1520 1080 C1700 920, 1940 1180, 2220 990"/>
+  </g>
+</svg>
