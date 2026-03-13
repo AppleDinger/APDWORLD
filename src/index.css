@@ -1,0 +1,287 @@
+:root {
+  --sky-1: #7be8ff;
+  --sky-2: #52b4ff;
+  --sky-3: #29f2d2;
+  --leaf: #5ad26c;
+  --bubble: #eaf9ffcc;
+  --glass: #ffffff36;
+  --glass-edge: #ffffffb8;
+  --ink: #093a56;
+  --chrome: linear-gradient(180deg, #f7fdff 0%, #8ddcff 42%, #50bcff 72%, #bdf7ff 100%);
+  --shadow: 0 20px 45px #08547b52;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: 'Segoe UI', 'Frutiger', 'Trebuchet MS', sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(80% 60% at 10% 4%, #fbffde 0%, transparent 38%),
+    radial-gradient(46% 30% at 82% 17%, #ffffff9c 0%, transparent 88%),
+    linear-gradient(160deg, var(--sky-1) 0%, var(--sky-2) 38%, #59d5a4 76%, var(--leaf) 100%);
+  overflow-x: hidden;
+}
+
+.desktop-scene {
+  position: relative;
+  min-height: 100vh;
+  padding: 1.25rem 1rem 6.5rem;
+}
+
+.sun-flare {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 90% 12%, #fffbd1eb 0%, #fffbd100 32%),
+    radial-gradient(circle at 12% 88%, #c4ffdd7c 0%, #c4ffdd00 30%);
+}
+
+.hero-bar {
+  max-width: 900px;
+  margin: 0 auto 1rem;
+  border-radius: 28px;
+  padding: 1rem 1.4rem;
+  background: linear-gradient(170deg, #ffffffad 0%, #dbf3ff6e 100%);
+  border: 1px solid #ffffffba;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(13px) saturate(1.2);
+  animation: reveal 0.7s ease-out;
+}
+
+.hero-bar h1 {
+  margin: 0.25rem 0;
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+  letter-spacing: 0.02em;
+}
+
+.hero-bar p {
+  margin: 0.3rem 0;
+  line-height: 1.35;
+}
+
+.badge {
+  display: inline-block;
+  margin: 0;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  background: #faffff8f;
+  border: 1px solid #ffffffd6;
+  font-weight: 700;
+  font-size: 0.8rem;
+}
+
+.desktop-grid {
+  display: grid;
+  grid-template-columns: minmax(100px, 190px) 1fr;
+  gap: 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.desktop-icons {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+}
+
+.desktop-icon {
+  border: 1px solid #ffffffcc;
+  background: linear-gradient(180deg, #ffffff99 0%, #d4f3ff5c 100%);
+  color: #0b4868;
+  border-radius: 18px;
+  padding: 0.6rem;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px #04517532;
+  backdrop-filter: blur(9px);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.desktop-icon:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 22px #0451754a;
+}
+
+.desktop-icon-glyph {
+  display: block;
+  font-size: 1.4rem;
+  margin-bottom: 0.25rem;
+}
+
+.windows-layer {
+  display: grid;
+  gap: 1rem;
+}
+
+.aero-window {
+  border-radius: 22px;
+  border: 1px solid var(--glass-edge);
+  background: linear-gradient(170deg, #ffffffb8 0%, #dcf3ff96 100%);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  backdrop-filter: blur(16px) saturate(1.3);
+  transform-origin: top center;
+  animation: reveal 360ms ease;
+}
+
+.window-titlebar {
+  background: var(--chrome);
+  padding: 0.62rem 0.7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ffffffbd;
+}
+
+.window-title {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.window-title h2 {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.window-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.window-btn {
+  border: 1px solid #ffffff;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  background: linear-gradient(180deg, #f7ffff 0%, #8ee0ff 58%, #7db0ff 100%);
+  color: #0e4875;
+  font-weight: 700;
+}
+
+.window-btn.close {
+  background: linear-gradient(180deg, #fff8f8 0%, #ffa5a5 44%, #ff6464 100%);
+  color: #5f1111;
+}
+
+.window-content {
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.widget-card {
+  border-radius: 16px;
+  border: 1px solid #fff;
+  padding: 0.8rem;
+  background:
+    linear-gradient(180deg, #ffffffce 0%, var(--bubble) 100%),
+    linear-gradient(120deg, #7de6ff60 0%, #57d8713f 100%);
+}
+
+.widget-card h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.98rem;
+}
+
+.widget-card ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.widget-card p {
+  margin: 0;
+  line-height: 1.35;
+}
+
+.empty-state {
+  border: 1px dashed #ffffffd7;
+  background: #e8fcff85;
+  border-radius: 16px;
+  padding: 1rem;
+}
+
+.aero-dock {
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.48rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid #ffffffd4;
+  background: linear-gradient(170deg, #ffffffbc 0%, #dcf4ffa8 100%);
+  box-shadow: 0 10px 30px #0a5a7d52;
+  backdrop-filter: blur(18px) saturate(1.25);
+}
+
+.dock-item {
+  border: 1px solid #ffffffd6;
+  border-radius: 14px;
+  padding: 0.34rem 0.58rem;
+  background: linear-gradient(180deg, #ffffffbd 0%, #b6ebff99 100%);
+  color: #074666;
+  cursor: pointer;
+  display: grid;
+  justify-items: center;
+  min-width: 70px;
+}
+
+.dock-item.active {
+  box-shadow: inset 0 0 0 2px #ffffffa3, 0 0 0 2px #58d5ff6e;
+}
+
+.dock-icon {
+  font-size: 1.05rem;
+}
+
+.dock-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+@keyframes reveal {
+  from {
+    transform: translateY(14px) scale(0.98);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@media (max-width: 900px) {
+  .desktop-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .desktop-icons {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aero-dock {
+    width: calc(100% - 1rem);
+    justify-content: space-between;
+    border-radius: 22px;
+  }
+
+  .dock-item {
+    min-width: 0;
+    flex: 1;
+  }
+}
