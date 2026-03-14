@@ -1,49 +1,18 @@
 import { useNavigate, useParams } from 'react-router-dom'
 
-function FolderView({ items, basePath }) {
+function FolderView({ items, category }) {
   const navigate = useNavigate()
-  const { subId } = useParams()
-
-  if (subId) {
-    const selected = items.find((item) => item.id === subId)
-
-    if (!selected) {
-      return (
-        <div className="folder-empty">
-          <h3>Folder Not Found</h3>
-          <p>This sub-folder does not exist. Return to the parent folder and try another item.</p>
-          <button className="archive-btn" onClick={() => navigate(basePath)}>
-            Back To Hobbies
-          </button>
-        </div>
-      )
-    }
-
-    return (
-      <article className="folder-details">
-        <h2>{selected.icon} {selected.title}</h2>
-        <p>{selected.description}</p>
-        <ul>
-          {selected.entries.map((entry) => (
-            <li key={entry}>{entry}</li>
-          ))}
-        </ul>
-        <button className="archive-btn" onClick={() => navigate(basePath)}>
-          Back To All Sub-Folders
-        </button>
-      </article>
-    )
-  }
+  const { category: routeCategory, id } = useParams()
 
   return (
     <section className="folder-grid" aria-label="Folder Grid">
       {items.map((item) => (
         <button
           key={item.id}
-          className="folder-icon"
-          onClick={() => navigate(`${basePath}/${item.id}`)}
+          className={`folder-icon ${routeCategory === category && id === item.id ? 'active' : ''}`}
+          onClick={() => navigate(`/${category}/${item.id}`)}
         >
-          <span className="folder-glyph">{item.icon}</span>
+          <img src={item.icon} alt="" className="folder-glyph" loading="lazy" />
           <span>{item.title}</span>
         </button>
       ))}

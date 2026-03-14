@@ -5,10 +5,10 @@ import { computerRoutes, folderRoutes } from '../data/archiveData'
 const breadcrumbLabels = {
   '': 'Computer',
   blog: 'Blog',
+  movies: 'Movies',
   hobbies: 'Hobbies',
   projects: 'Projects',
   art: 'Art',
-  music: 'Music',
   gaming: 'Gaming',
   coding: 'Coding',
 }
@@ -34,7 +34,7 @@ function MainLayout() {
                 className={({ isActive }) => `side-link ${isActive ? 'active' : ''}`}
                 end={route.path === '/'}
               >
-                <span>{route.icon}</span>
+                <img src={route.icon} alt="" className="nav-icon" loading="lazy" />
                 <span>{route.title}</span>
               </NavLink>
             ))}
@@ -50,7 +50,7 @@ function MainLayout() {
                 to={route.path}
                 className={({ isActive }) => `side-link ${isActive ? 'active' : ''}`}
               >
-                <span>{route.icon}</span>
+                <img src={route.icon} alt="" className="nav-icon" loading="lazy" />
                 <span>{route.title}</span>
               </NavLink>
             ))}

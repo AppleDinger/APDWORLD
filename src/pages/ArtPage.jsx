@@ -1,12 +1,14 @@
+import FolderView from '../components/FolderView'
+import { getCategoryItems } from '../data/archiveContent'
+
 function ArtPage() {
+  const artItems = getCategoryItems('art')
+
   return (
     <section className="page-content">
       <h2>Art we Love.jpg</h2>
-      <ul>
-        <li>Cloudscape posters with shiny reflective overlays.</li>
-        <li>Character doodles from cafe and station observations.</li>
-        <li>Color studies focused on vivid greens and electric blues.</li>
-      </ul>
+      <p>Pick an artwork file to open full masterpiece mode and process logs.</p>
+      <FolderView items={artItems} category="art" />
     </section>
   )
 }
