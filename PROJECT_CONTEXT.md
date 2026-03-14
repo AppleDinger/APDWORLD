@@ -2,82 +2,95 @@
 
 Last updated: 2026-03-14
 Project: APDWORLD
-Goal: Nostalgic, funny personal poster site with an Aero-style archive OS experience.
+Goal: Nostalgic, funny personal poster site with Frutiger Aero visual language and folder-style navigation.
 
-## Product Direction
-- Shift complete: from single dashboard-style poster to multi-page, nested-folder Archive OS.
-- UX metaphor: desktop explorer with sidebar hierarchy and content panel navigation.
-- Visual direction: Frutiger Aero-inspired glass UI in a green-blue palette (not black).
+## Current Product State
+- Architecture has shifted from a desktop window manager concept to a route-driven "Explorer OS" shell.
+- Primary UX: fixed sidebar explorer + content window with breadcrumbs.
+- Visual direction is green/blue Aero glass (explicitly not black Aero).
+- Content is data-driven and rendered through category pages plus dynamic detail routes.
 
-## Tech Stack
-- Framework: React + Vite
-- Routing: react-router-dom (nested routes)
-- Styling: modern CSS (backdrop-filter, gradients, CSS variables, custom scrollbars)
-- Deployment target: GitHub Pages via gh-pages
+## Tech Stack and Runtime
+- React 18 + Vite 5
+- react-router-dom for nested routing and dynamic params
+- CSS variables + backdrop filters + responsive breakpoints in a single central stylesheet
+- `getAsset` helper for BASE_URL-safe static asset paths (GitHub Pages compatibility)
 
-## Current Architecture
-- Centralized route configuration in src/routes.jsx
-- Router entry:
-  - BrowserRouter in src/main.jsx
-  - useRoutes in src/App.jsx
-- Shell layout:
-  - MainLayout with fixed 300px sidebar and main content area
-  - Sidebar nav hierarchy:
-    - Computer: Home (Sitemap), Blog (Ram Says)
-    - Folders: Hobbies i suck at.msi, Projects.exe, Art we Love.jpg, Music gives you life.mp4
-- Main content container:
-  - AeroWindow now functions as archive content frame
-  - Includes breadcrumb bar (Computer > ...)
+## Canonical Architecture
+- Routing source: `src/routes.jsx`
+  - `/`
+  - `/blog`
+  - `/blog/:id`
+  - `/hobbies`
+  - `/projects`
+  - `/art`
+  - `/movies`
+  - `/music`
+  - `/:category/:id` (dynamic details)
+- Layout shell: `src/layouts/MainLayout.jsx`
+  - Left sidebar sections: Computer + Folders
+  - Main panel wraps `AeroWindow` and route `Outlet`
+  - Breadcrumb labels generated from pathname segments
+- Dynamic details controller: `src/pages/ContentLoader.jsx`
+  - Loading spinner transition before rendering detail
+  - Category-specific layouts:
+    - `MovieDetail`
+    - `MusicDetail`
+    - `ProjectDetail`
+    - `HobbyDetail`
+    - `ArtDetail`
 
-## Routing Structure
-- /
-- /blog
-- /hobbies
-- /hobbies/:subId
-- /projects
-- /art
-- /music
+## Data Model and Navigation
+- Navigation metadata: `src/data/navigationData.js`
+  - Uses exact icon mappings from `/public/icons/*`
+  - Folders include Hobbies, Projects, Art, Movies, Music
+- Content source of truth: `src/data/siteContent.js`
+  - Category object buckets keyed by `id`
+  - `getCategoryItems(category)` transforms bucket entries for folder grids
+  - Includes optional `labelImage` passthrough for folder label image rendering
+- Blog data: `src/data/blogData.js` consumed by `BlogPage` and `BlogDetail`
 
-## Component Progress
-### Refactored / Added
-- AeroWindow updated to content container + breadcrumb bar
-- FolderView added as icon-grid folder renderer with useParams-driven sub-folder details
-- BlogCarousel added as horizontal, scrollable Ram Says widget with glossy droplet cards
+## Components and Notable Behavior
+- `src/components/FolderView.jsx`
+  - Renders folder glyph icon + label
+  - New behavior: if `item.labelImage` exists, renders an image label instead of plain text
+- `src/components/YouTubeEmbed.jsx`
+  - Normalizes watch/short/embed URLs to a video id
+  - Uses `https://www.youtube.com/embed/{id}` to avoid refused-to-connect issues
+- `src/components/ReusableCarousel.jsx` and `src/components/BlogCarousel.jsx`
+  - Shared horizontal card rails; mobile behavior tuned in CSS
 
-### Pages Added
-- HomePage (sitemap)
-- BlogPage (carousel)
-- HobbiesPage (nested folder entry)
-- ProjectsPage
-- ArtPage
-- MusicPage
+## Styling Snapshot
+- Primary stylesheet: `src/index.css`
+- Current baseline glass variable:
+  - `--glass-panel: rgba(6, 56, 65, 0.01)`
+- Recently updated translucent tile styles:
+  - `.folder-icon` and `.sitemap-tile` now use:
+    - `background: rgba(255, 255, 255, 0.12)`
+    - `backdrop-filter: blur(12px) saturate(160%)`
+    - `border: 1px solid rgba(255, 255, 255, 0.2)`
+    - `box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3)`
+- Folder label image support style added:
+  - `.folder-icon .folder-label-image { max-width: 100%; height: auto; pointer-events: none; }`
+- Music detail visual fixes:
+  - `.mini-player-wrap` uses `overflow: hidden`
+  - embedded iframe has consistent rounded corners
 
-### Data and Layout
-- archiveData.js added for folder/computer route metadata and hobbies sub-folder content
-- MainLayout.jsx added to orchestrate sidebar, breadcrumbing, and Outlet rendering
+## Asset Pathing and Deploy Safety
+- Asset helper: `src/utils/getAsset.js`
+  - `getAsset(path) => ${import.meta.env.BASE_URL}${path}`
+- Most components/pages now route image/icon paths through `getAsset`
+- Wallpaper currently set in `src/App.jsx` via:
+  - `getAsset('wallpapers/Win XP wallpaper.webp')`
 
-## Visual Implementation Status (Green-Blue Aero)
-- Background uses fixed grass wallpaper asset from src/assets/wallpapers/grass-aero.svg
-- Glass containers implemented for sidebar and main panel with blur and glossy top gradient
-- Typography uses Segoe UI/Frutiger stack with subtle header glow/text-shadow
-- Scrollbars styled as thin glossy green rounded pills
-- Responsive behavior added for narrow viewports
+## Known Risks / Verification Items
+1. Runtime check recommended for wallpaper extension consistency (`.webp` vs existing files in `/public/wallpapers`).
+2. End-to-end route QA still advised after large CSS and routing iterations.
+3. Verify on mobile for bottom-dock behavior, vertical card stacks, and detail page scroll continuity.
 
-## Dependency and Config Status
-- package.json includes react-router-dom and gh-pages scripts
-- vite.config.js uses base: './' for static hosting compatibility
-
-## Known Status
-- Editor diagnostics currently report no file errors in refactored route/layout/component files.
-- Terminal in this environment previously returned empty output for install/build commands, so command logs are not yet captured here.
-
-## Remaining Validation
-1. Run npm install
-2. Run npm run dev and verify all routes and nested hobbies paths
-3. Run npm run build
-4. Run npm run deploy
-
-## Suggested Next Enhancements
-- Add draggable/resizable faux windows while preserving route state
-- Persist last-opened route and sidebar state in localStorage
-- Replace placeholder folder content with final personal media and copy
+## Suggested First Steps Next Session
+1. Run local preview and sanity-check all major routes:
+   - `/`, `/blog`, `/blog/:id`, `/hobbies`, `/projects`, `/art`, `/movies`, `/music`, `/:category/:id`.
+2. Confirm YouTube embed playback on music detail pages.
+3. If wallpaper is missing, align `src/App.jsx` wallpaper filename to the actual file in `/public/wallpapers`.
+4. Start replacing placeholder content assets/text with final personal content.

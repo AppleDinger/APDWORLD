@@ -14,7 +14,16 @@ function FolderView({ items, category }) {
           onClick={() => navigate(`/${category}/${item.id}`)}
         >
           <img src={getAsset(item.icon)} alt="" className="folder-glyph" loading="lazy" />
-          <span>{item.title}</span>
+          {item.labelImage ? (
+            <img
+              src={getAsset(item.labelImage)}
+              alt={item.title}
+              className="folder-label-image"
+              loading="lazy"
+            />
+          ) : (
+            <span>{item.title}</span>
+          )}
         </button>
       ))}
     </section>

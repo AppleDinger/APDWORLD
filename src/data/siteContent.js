@@ -1,11 +1,11 @@
-import { iconMap } from './archiveData'
+import { iconMap } from './navigationData'
 
-export const archiveContent = {
+export const siteContent = {
   projects: {
     'apd-os': {
       id: 'apd-os',
       icon: iconMap.projects,
-      title: 'APDWORLD Archive OS',
+      title: 'APDWORLD OS type site',
       status: 'Refactoring into a dynamic content factory with nested detail pages and reusable widgets.',
       snapshots: [
         { id: 's1', title: 'Sidebar Shell', tone: 'teal', image: 'assets/projects/sidebar-shell.svg' },
@@ -13,7 +13,7 @@ export const archiveContent = {
         { id: 's3', title: 'Detail Loader', tone: 'green', image: 'assets/projects/detail-loader.svg' },
       ],
       timeline: [
-        { phase: 'Kickoff', note: 'Migrated from dashboard to archive navigation model.' },
+        { phase: 'Kickoff', note: 'Migrated from dashboard to sidebar navigation model.' },
         { phase: 'Routing', note: 'Added nested routes and dynamic /:category/:id resolver.' },
         { phase: 'Polish', note: 'Applied green-blue Aero gradients, blur hierarchy, and glossy widgets.' },
       ],
@@ -152,12 +152,13 @@ export const categoryLabels = {
 }
 
 export function getCategoryItems(category) {
-  const source = archiveContent[category]
+  const source = siteContent[category]
   if (!source) return []
 
   return Object.values(source).map((item) => ({
     id: item.id,
     title: item.title,
     icon: item.icon,
+    labelImage: item.labelImage,
   }))
 }

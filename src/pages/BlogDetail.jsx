@@ -18,17 +18,17 @@ function BlogDetail() {
     return (
       <section className="page-content content-fade">
         <h2>Post Not Found</h2>
-        <p>That note got lost in the archive stack.</p>
-        <Link to="/blog" className="archive-btn-link">Back to Archive</Link>
+        <p>That note got lost in the note stack.</p>
+        <Link to="/blog" className="app-btn-link">Back to Blog</Link>
       </section>
     )
   }
 
   return (
     <section className="blog-reader content-fade">
-      <Link to="/blog" className="back-archive-btn">
+      <Link to="/blog" className="back-app-btn">
         <span className="silver-arrow" aria-hidden="true">◀</span>
-        <span>Back to Archive</span>
+        <span>Back to Blog</span>
       </Link>
 
       {loading ? (

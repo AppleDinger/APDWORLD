@@ -5,7 +5,7 @@
   --blue-500: #2f9de8;
   --green-500: #3ecb76;
   --green-400: #61e08e;
-  --glass-panel: rgba(6, 56, 65, 0.67);
+  --glass-panel: rgba(6, 56, 65, 0.1);
   --glass-edge: rgba(184, 255, 219, 0.26);
   --text-main: #dffff0;
   --text-soft: #bcf6e3;
@@ -38,7 +38,7 @@ body {
   overflow: hidden;
 }
 
-.archive-shell {
+.app-shell {
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 1rem;
@@ -46,8 +46,8 @@ body {
   padding: 1rem;
 }
 
-.archive-sidebar,
-.archive-main {
+.app-sidebar,
+.app-main {
   background: var(--glass-panel);
   border: 1px solid var(--glass-edge);
   border-radius: 20px;
@@ -57,8 +57,8 @@ body {
   overflow: hidden;
 }
 
-.archive-sidebar::before,
-.archive-main::before {
+.app-sidebar::before,
+.app-main::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -66,18 +66,18 @@ body {
   background: linear-gradient(to bottom, rgba(220, 255, 241, 0.18) 0%, rgba(220, 255, 241, 0) 33%);
 }
 
-.archive-sidebar {
+.app-sidebar {
   padding: 1.1rem;
   overflow-y: auto;
 }
 
-.archive-main {
+.app-main {
   padding: 0.75rem;
   display: flex;
   justify-content: center;
 }
 
-.archive-title {
+.app-title {
   margin: 0 0 1rem;
   font-size: 1.4rem;
   text-shadow: var(--glow);
@@ -204,8 +204,10 @@ body {
   text-decoration: none;
   color: #e7fff2;
   border-radius: 14px;
-  border: 1px solid rgba(180, 255, 224, 0.2);
-  background: linear-gradient(180deg, rgba(43, 130, 156, 0.52) 0%, rgba(16, 85, 103, 0.54) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
   padding: 0.8rem;
   display: grid;
   gap: 0.4rem;
@@ -224,9 +226,11 @@ body {
 }
 
 .folder-icon {
-  border: 1px solid rgba(186, 255, 224, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
-  background: linear-gradient(180deg, rgba(88, 195, 158, 0.4) 0%, rgba(20, 90, 102, 0.5) 100%);
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px) saturate(160%);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3);
   color: var(--text-main);
   padding: 0.7rem;
   min-height: 100px;
@@ -238,8 +242,14 @@ body {
 }
 
 .folder-icon.active {
-  box-shadow: inset 0 0 0 2px rgba(224, 255, 240, 0.42);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.3), inset 0 0 0 2px rgba(224, 255, 240, 0.42);
   border-color: rgba(208, 255, 235, 0.5);
+}
+
+.folder-icon .folder-label-image {
+  max-width: 100%;
+  height: auto;
+  pointer-events: none;
 }
 
 .folder-glyph {
@@ -248,8 +258,8 @@ body {
   object-fit: contain;
 }
 
-.archive-btn,
-.archive-btn-link {
+.app-btn,
+.app-btn-link {
   border: 1px solid rgba(208, 255, 235, 0.4);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(109, 226, 166, 0.86) 0%, rgba(52, 161, 126, 0.86) 100%);
@@ -291,6 +301,10 @@ body {
   box-shadow: inset 0 1px 0 rgba(233, 255, 246, 0.2);
   backdrop-filter: blur(25px) saturate(180%);
   padding: 0.9rem;
+}
+
+.mini-player-wrap {
+  overflow: hidden;
 }
 
 .music-hero-grid {
@@ -384,7 +398,7 @@ body {
   width: 100%;
   min-height: 240px;
   border: 0;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .reusable-carousel {
@@ -586,7 +600,7 @@ body {
   gap: 0.8rem;
 }
 
-.back-archive-btn {
+.back-app-btn {
   text-decoration: none;
   color: #e6fff6;
   display: inline-flex;
@@ -821,12 +835,12 @@ body {
     overflow: auto;
   }
 
-  .archive-shell {
+  .app-shell {
     grid-template-columns: 1fr;
     height: auto;
   }
 
-  .archive-sidebar {
+  .app-sidebar {
     max-height: 38vh;
   }
 
@@ -863,20 +877,20 @@ body {
     overflow: auto;
   }
 
-  .archive-shell {
+  .app-shell {
     grid-template-columns: 1fr;
     gap: 0.55rem;
     height: auto;
     padding: 0.5rem 0.4rem 5rem;
   }
 
-  .archive-main,
+  .app-main,
   .aero-window {
     width: 95vw;
     margin: 0 auto;
   }
 
-  .archive-sidebar {
+  .app-sidebar {
     position: fixed;
     left: 2.5vw;
     right: 2.5vw;
@@ -893,7 +907,7 @@ body {
     gap: 0.35rem;
   }
 
-  .archive-title,
+  .app-title,
   .sidebar-group h2,
   .side-link span {
     display: none;

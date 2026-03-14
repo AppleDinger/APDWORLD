@@ -1,5 +1,5 @@
 import FolderView from '../components/FolderView'
-import { getCategoryItems } from '../data/archiveContent'
+import { getCategoryItems } from '../data/siteContent'
 
 function ProjectsPage() {
   const projectItems = getCategoryItems('projects')

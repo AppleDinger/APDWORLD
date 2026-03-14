@@ -18,7 +18,7 @@ function extractVideoId(videoUrl) {
 
 function YouTubeEmbed({ videoUrl, title }) {
   const videoId = extractVideoId(videoUrl)
-  const src = `https://www.google.com/search?q=https://www.youtube.com/embed/${videoId}`
+  const src = `https://www.youtube.com/embed/${videoId}`
 
   return (
     <div className="youtube-embed-shell">
@@ -26,7 +26,7 @@ function YouTubeEmbed({ videoUrl, title }) {
       <iframe
         src={src}
         title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="autoplay; encrypted-media; picture-in-picture"
         allowFullScreen
       />
     </div>

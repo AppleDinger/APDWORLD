@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { archiveContent, categoryLabels } from '../data/archiveContent'
+import { siteContent, categoryLabels } from '../data/siteContent'
 import MovieDetail from './details/MovieDetail'
 import MusicDetail from './details/MusicDetail'
 import ProjectDetail from './details/ProjectDetail'
@@ -17,17 +17,17 @@ function ContentLoader() {
     return () => clearTimeout(timer)
   }, [category, id])
 
-  const categoryBucket = archiveContent[category]
+  const categoryBucket = siteContent[category]
   const item = categoryBucket?.[id]
 
   if (!categoryBucket || !item) {
     return (
       <section className="page-content content-fade">
-        <h2>Archive Item Not Found</h2>
+        <h2>Item Not Found</h2>
         <p>That file may have been renamed, moved, or eaten by the desktop gremlins.</p>
         {category && (
           <p>
-            <Link to={`/${category}`} className="archive-btn-link">
+            <Link to={`/${category}`} className="app-btn-link">
               Back to {categoryLabels[category] || category}
             </Link>
           </p>
@@ -69,7 +69,7 @@ function ContentLoader() {
   return (
     <section className="page-content content-fade">
       <h2>Unsupported Category</h2>
-      <p>This archive type does not have a specialized detail layout yet.</p>
+      <p>This content type does not have a specialized detail layout yet.</p>
     </section>
   )
 }

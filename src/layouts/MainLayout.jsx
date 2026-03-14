@@ -1,6 +1,8 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import AeroWindow from '../components/AeroWindow'
-import { computerRoutes, folderRoutes } from '../data/archiveData'
+import { computerRoutes, folderRoutes } from '../data/navigationData'
+import { siteContent } from '../data/siteContent'
+import { blogPosts } from '../data/blogData'
 import { getAsset } from '../utils/getAsset'
 
 const breadcrumbLabels = {
@@ -19,12 +21,24 @@ function MainLayout() {
   const location = useLocation()
 
   const segments = location.pathname.split('/').filter(Boolean)
-  const crumbs = ['Computer', ...segments.map((segment) => breadcrumbLabels[segment] || segment)]
+  const crumbs = ['Computer', ...segments.map((segment, index) => {
+    if (index === 1) {
+      const category = segments[0]
+      const categoryItem = siteContent[category]?.[segment]
+      if (categoryItem?.title) return categoryItem.title
+
+      if (category === 'blog' && blogPosts[segment]?.title) {
+        return blogPosts[segment].title
+      }
+    }
+
+    return breadcrumbLabels[segment] || segment
+  })]
 
   return (
-    <div className="archive-shell">
-      <aside className="archive-sidebar">
-        <h1 className="archive-title">APDWORLD Archive</h1>
+    <div className="app-shell">
+      <aside className="app-sidebar">
+        <h1 className="app-title">APDWORLD</h1>
 
         <section className="sidebar-group">
           <h2>Computer</h2>
@@ -60,8 +74,8 @@ function MainLayout() {
         </section>
       </aside>
 
-      <main className="archive-main">
-        <AeroWindow title="Archive Explorer" breadcrumbs={crumbs}>
+      <main className="app-main">
+        <AeroWindow title="APD Explorer" breadcrumbs={crumbs}>
           <Outlet />
         </AeroWindow>
       </main>
