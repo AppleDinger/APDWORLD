@@ -1,11 +1,13 @@
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import AeroWindow from '../components/AeroWindow'
 import { computerRoutes, folderRoutes } from '../data/archiveData'
+import { getAsset } from '../utils/getAsset'
 
 const breadcrumbLabels = {
   '': 'Computer',
   blog: 'Blog',
   movies: 'Movies',
+  music: 'Music',
   hobbies: 'Hobbies',
   projects: 'Projects',
   art: 'Art',
@@ -34,7 +36,7 @@ function MainLayout() {
                 className={({ isActive }) => `side-link ${isActive ? 'active' : ''}`}
                 end={route.path === '/'}
               >
-                <img src={route.icon} alt="" className="nav-icon" loading="lazy" />
+                <img src={getAsset(route.icon)} alt="" className="nav-icon" loading="lazy" />
                 <span>{route.title}</span>
               </NavLink>
             ))}
@@ -50,7 +52,7 @@ function MainLayout() {
                 to={route.path}
                 className={({ isActive }) => `side-link ${isActive ? 'active' : ''}`}
               >
-                <img src={route.icon} alt="" className="nav-icon" loading="lazy" />
+                <img src={getAsset(route.icon)} alt="" className="nav-icon" loading="lazy" />
                 <span>{route.title}</span>
               </NavLink>
             ))}

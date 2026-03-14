@@ -1,6 +1,7 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { blogPosts } from '../data/blogData'
+import { getAsset } from '../utils/getAsset'
 
 function BlogDetail() {
   const { id } = useParams()
@@ -38,7 +39,7 @@ function BlogDetail() {
         <article className="reader-pane">
           <h2>{post.title}</h2>
           <p className="post-meta">{post.date} • {post.readingTime}</p>
-          <img src={post.image} alt={post.title} className="reader-cover" loading="lazy" />
+          <img src={getAsset(post.image)} alt={post.title} className="reader-cover" loading="lazy" />
           <div className="reader-body">
             {post.body.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>

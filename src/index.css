@@ -11,6 +11,7 @@
   --text-soft: #bcf6e3;
   --glow: 0 0 8px rgba(255, 255, 255, 0.6);
   --drop: 0 22px 40px rgba(4, 31, 37, 0.55);
+  --flow: row;
 }
 
 * {
@@ -30,7 +31,7 @@ body {
   background-image:
     radial-gradient(circle at 8% 7%, rgba(156, 255, 202, 0.18), transparent 35%),
     radial-gradient(circle at 90% 10%, rgba(198, 255, 234, 0.2), transparent 32%),
-    url('./assets/wallpapers/grass-aero.svg');
+    var(--app-wallpaper);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
@@ -73,6 +74,7 @@ body {
 .archive-main {
   padding: 0.75rem;
   display: flex;
+  justify-content: center;
 }
 
 .archive-title {
@@ -136,8 +138,9 @@ body {
   display: grid;
   grid-template-rows: auto auto 1fr;
   border-radius: 16px;
-  border: 1px solid rgba(186, 255, 224, 0.22);
-  background: linear-gradient(180deg, rgba(22, 101, 123, 0.5) 0%, rgba(7, 58, 70, 0.6) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px) saturate(180%);
   box-shadow: inset 0 1px 0 rgba(232, 255, 244, 0.2), var(--drop);
   overflow: hidden;
 }
@@ -145,7 +148,7 @@ body {
 .window-titlebar {
   padding: 0.8rem 0.95rem;
   border-bottom: 1px solid rgba(176, 255, 220, 0.23);
-  background: linear-gradient(to bottom, rgba(168, 255, 221, 0.25) 0%, rgba(168, 255, 221, 0.05) 100%);
+  background: linear-gradient(to bottom, rgba(168, 255, 221, 0.18) 0%, rgba(168, 255, 221, 0.02) 100%);
 }
 
 .window-title h2 {
@@ -159,13 +162,14 @@ body {
   border-bottom: 1px solid rgba(176, 255, 220, 0.18);
   font-size: 0.85rem;
   color: var(--text-soft);
-  background: rgba(11, 68, 80, 0.48);
+  background: rgba(11, 68, 80, 0.3);
 }
 
 .window-content {
   padding: 1rem;
   min-height: 0;
   height: 100%;
+  width: 100%;
   overflow-y: auto;
 }
 
@@ -180,6 +184,14 @@ body {
 .folder-details p,
 .folder-details li {
   color: #d0ffe9;
+}
+
+.widget-card {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px) saturate(180%);
+  padding: 0.8rem;
 }
 
 .sitemap-grid {
@@ -236,32 +248,16 @@ body {
   object-fit: contain;
 }
 
-.folder-details {
-  border-radius: 16px;
-  border: 1px solid rgba(186, 255, 224, 0.2);
-  background: linear-gradient(180deg, rgba(77, 173, 191, 0.35) 0%, rgba(18, 84, 102, 0.4) 100%);
-  padding: 1rem;
-}
-
-.archive-btn {
-  border: 1px solid rgba(208, 255, 235, 0.4);
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(109, 226, 166, 0.86) 0%, rgba(52, 161, 126, 0.86) 100%);
-  color: #043a30;
-  padding: 0.5rem 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
+.archive-btn,
 .archive-btn-link {
-  display: inline-block;
-  text-decoration: none;
   border: 1px solid rgba(208, 255, 235, 0.4);
   border-radius: 999px;
   background: linear-gradient(180deg, rgba(109, 226, 166, 0.86) 0%, rgba(52, 161, 126, 0.86) 100%);
   color: #043a30;
   padding: 0.5rem 0.9rem;
   font-weight: 700;
+  text-decoration: none;
+  display: inline-block;
 }
 
 .content-fade {
@@ -290,10 +286,10 @@ body {
 .star-widget,
 .mini-player-wrap {
   border-radius: 16px;
-  border: 1px solid rgba(186, 255, 224, 0.24);
-  background: linear-gradient(180deg, rgba(84, 190, 207, 0.28) 0%, rgba(22, 91, 110, 0.42) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
   box-shadow: inset 0 1px 0 rgba(233, 255, 246, 0.2);
-  backdrop-filter: blur(14px);
+  backdrop-filter: blur(25px) saturate(180%);
   padding: 0.9rem;
 }
 
@@ -305,25 +301,40 @@ body {
 
 .album-frame {
   border-radius: 20px;
-  border: 1px solid rgba(208, 255, 235, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 0.85rem;
-  background: linear-gradient(180deg, rgba(199, 255, 233, 0.26) 0%, rgba(64, 157, 186, 0.38) 100%);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px) saturate(180%);
 }
 
 .album-art {
   min-height: 240px;
   border-radius: 16px;
   border: 1px solid rgba(216, 255, 239, 0.4);
-  background:
-    radial-gradient(circle at 15% 12%, rgba(242, 255, 250, 0.6) 0%, rgba(242, 255, 250, 0) 36%),
-    linear-gradient(160deg, rgba(98, 232, 169, 0.5) 0%, rgba(65, 164, 210, 0.58) 48%, rgba(22, 95, 137, 0.72) 100%);
   display: grid;
   place-items: center;
   text-align: center;
   font-size: 1.15rem;
   font-weight: 700;
   text-shadow: var(--glow);
+  position: relative;
+  overflow: hidden;
+}
+
+.album-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+}
+
+.album-art span {
+  position: relative;
+  z-index: 2;
+  background: rgba(8, 64, 75, 0.62);
+  border-radius: 8px;
+  padding: 0.25rem 0.45rem;
 }
 
 .music-side-widgets {
@@ -352,14 +363,24 @@ body {
   text-shadow: 0 0 10px rgba(255, 250, 175, 0.8);
 }
 
-.mini-player-frame {
+.youtube-embed-shell {
+  position: relative;
   border-radius: 14px;
-  border: 1px solid rgba(204, 255, 233, 0.36);
-  background: linear-gradient(180deg, rgba(196, 255, 231, 0.2) 0%, rgba(27, 105, 132, 0.5) 100%);
-  padding: 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(25px) saturate(180%);
+  padding: 0.55rem;
+  overflow: hidden;
 }
 
-.mini-player-frame iframe {
+.youtube-embed-shine {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.2) 45%, transparent 75%);
+}
+
+.youtube-embed-shell iframe {
   width: 100%;
   min-height: 240px;
   border: 0;
@@ -367,9 +388,8 @@ body {
 }
 
 .reusable-carousel {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(200px, 300px);
+  display: flex;
+  flex-direction: var(--flow);
   gap: 0.7rem;
   overflow-x: auto;
   padding-bottom: 0.2rem;
@@ -378,6 +398,7 @@ body {
 
 .carousel-slide {
   min-height: 120px;
+  flex: 0 0 min(300px, 80vw);
   scroll-snap-align: start;
 }
 
@@ -395,10 +416,6 @@ body {
   text-align: center;
   font-weight: 700;
   text-shadow: var(--glow);
-}
-
-.photo-card,
-.snapshot-card {
   position: relative;
   overflow: hidden;
 }
@@ -441,7 +458,7 @@ body {
 
 .timeline-line {
   position: relative;
-  padding-left: 1.3rem;
+  padding-left: 1.2rem;
   display: grid;
   gap: 0.8rem;
 }
@@ -449,7 +466,7 @@ body {
 .timeline-line::before {
   content: '';
   position: absolute;
-  left: 0.35rem;
+  left: 0;
   top: 0.25rem;
   bottom: 0.25rem;
   width: 2px;
@@ -457,24 +474,27 @@ body {
   background: linear-gradient(180deg, rgba(172, 255, 212, 0.9) 0%, rgba(74, 169, 229, 0.8) 100%);
 }
 
-.timeline-node {
+.timeline-item {
   position: relative;
-  padding: 0.6rem 0.8rem;
-  border-radius: 12px;
-  border: 1px solid rgba(191, 255, 225, 0.23);
-  background: rgba(18, 84, 102, 0.4);
 }
 
-.timeline-node::before {
-  content: '';
+.timeline-dot {
   position: absolute;
-  left: -1.05rem;
-  top: 1rem;
+  left: 0;
+  top: 0.95rem;
+  transform: translate(-50%, 0);
   width: 0.55rem;
   height: 0.55rem;
   border-radius: 50%;
   background: rgba(192, 255, 223, 0.95);
   box-shadow: 0 0 12px rgba(178, 255, 208, 0.7);
+}
+
+.timeline-node {
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(191, 255, 225, 0.23);
+  background: rgba(18, 84, 102, 0.4);
 }
 
 .timeline-node h4,
@@ -683,11 +703,13 @@ body {
   border-radius: 999px;
   border: 1px solid rgba(255, 236, 182, 0.4);
   background: linear-gradient(180deg, rgba(255, 229, 136, 0.35) 0%, rgba(173, 128, 44, 0.35) 100%);
-  padding: 0.4rem 0.75rem;
+  padding: 0.5rem 0.9rem;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.35rem;
   font-weight: 700;
+  line-height: 1;
 }
 
 .gold-star {
@@ -741,13 +763,16 @@ body {
 }
 
 .blog-carousel {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(260px, 300px);
+  display: flex;
+  flex-direction: var(--flow);
   gap: 0.75rem;
   overflow-x: auto;
   padding-bottom: 0.25rem;
   scroll-behavior: smooth;
+}
+
+.blog-carousel .droplet-card {
+  flex: 0 0 min(300px, 84vw);
 }
 
 .droplet-card {
@@ -814,15 +839,109 @@ body {
     height: auto;
   }
 
-  .music-hero-grid {
-    grid-template-columns: 1fr;
-  }
-
+  .music-hero-grid,
   .movie-detail-grid {
     grid-template-columns: 1fr;
   }
 
   .process-step {
     grid-template-columns: 1fr;
+  }
+
+  .youtube-embed-shell iframe,
+  .mini-player-frame iframe {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    --flow: column;
+  }
+
+  body {
+    overflow: auto;
+  }
+
+  .archive-shell {
+    grid-template-columns: 1fr;
+    gap: 0.55rem;
+    height: auto;
+    padding: 0.5rem 0.4rem 5rem;
+  }
+
+  .archive-main,
+  .aero-window {
+    width: 95vw;
+    margin: 0 auto;
+  }
+
+  .archive-sidebar {
+    position: fixed;
+    left: 2.5vw;
+    right: 2.5vw;
+    bottom: 0.45rem;
+    z-index: 90;
+    width: 95vw;
+    max-height: none;
+    padding: 0.45rem 0.55rem;
+    border-radius: 999px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+  }
+
+  .archive-title,
+  .sidebar-group h2,
+  .side-link span {
+    display: none;
+  }
+
+  .sidebar-group {
+    margin: 0;
+  }
+
+  .sidebar-group nav {
+    display: flex;
+    gap: 0.35rem;
+  }
+
+  .side-link {
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 999px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .nav-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .reusable-carousel,
+  .blog-carousel {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 68vh;
+    padding-right: 0.3rem;
+  }
+
+  .carousel-slide,
+  .blog-carousel .droplet-card {
+    flex: 0 0 auto;
+  }
+
+  .timeline-line {
+    padding-left: 1.2rem;
+  }
+
+  .youtube-embed-shell iframe {
+    width: 100%;
   }
 }

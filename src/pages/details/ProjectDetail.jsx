@@ -1,10 +1,11 @@
 import ReusableCarousel from '../../components/ReusableCarousel'
+import { getAsset } from '../../utils/getAsset'
 
 function ProjectDetail({ item }) {
   return (
     <section className="detail-page content-fade">
       <h2>
-        <img src={item.icon} alt="" className="inline-icon" />
+        <img src={getAsset(item.icon)} alt="" className="inline-icon" />
         {item.title}
       </h2>
 
@@ -20,7 +21,7 @@ function ProjectDetail({ item }) {
           className="snapshot-carousel"
           renderItem={(shot) => (
             <div className={`snapshot-card ${shot.tone}`}>
-              <img src={shot.image} alt={shot.title} loading="lazy" />
+              <img src={getAsset(shot.image)} alt={shot.title} loading="lazy" />
               <strong>{shot.title}</strong>
             </div>
           )}
@@ -31,10 +32,13 @@ function ProjectDetail({ item }) {
         <h3>Development Timeline</h3>
         <div className="timeline-line">
           {item.timeline.map((point) => (
-            <article className="timeline-node" key={point.phase}>
-              <h4>{point.phase}</h4>
-              <p>{point.note}</p>
-            </article>
+            <div className="timeline-item" key={point.phase}>
+              <span className="timeline-dot" aria-hidden="true" />
+              <article className="timeline-node">
+                <h4>{point.phase}</h4>
+                <p>{point.note}</p>
+              </article>
+            </div>
           ))}
         </div>
       </section>

@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { archiveContent, categoryLabels } from '../data/archiveContent'
 import MovieDetail from './details/MovieDetail'
+import MusicDetail from './details/MusicDetail'
 import ProjectDetail from './details/ProjectDetail'
 import HobbyDetail from './details/HobbyDetail'
 import ArtDetail from './details/ArtDetail'
@@ -47,6 +48,10 @@ function ContentLoader() {
 
   if (category === 'movies') {
     return <MovieDetail item={item} />
+  }
+
+  if (category === 'music') {
+    return <MusicDetail item={item} />
   }
 
   if (category === 'projects') {

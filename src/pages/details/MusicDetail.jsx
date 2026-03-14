@@ -1,15 +1,21 @@
 import { useState } from 'react'
+import { getAsset } from '../../utils/getAsset'
+import YouTubeEmbed from '../../components/YouTubeEmbed'
 
 function MusicDetail({ item }) {
   const [rating, setRating] = useState(item.rating ?? 4)
 
   return (
     <section className="detail-page content-fade">
-      <h2>{item.icon} {item.title}</h2>
+      <h2>
+        <img src={getAsset(item.icon)} alt="" className="inline-icon" />
+        {item.title}
+      </h2>
 
       <div className="music-hero-grid">
         <div className="album-frame">
           <div className="album-art">
+            <img src={getAsset(item.coverImage)} alt={item.title} loading="lazy" />
             <span>{item.coverLabel}</span>
           </div>
         </div>
@@ -40,14 +46,7 @@ function MusicDetail({ item }) {
 
       <div className="mini-player-wrap">
         <h3>Mini Player</h3>
-        <div className="mini-player-frame">
-          <iframe
-            src={item.youtubeEmbed}
-            title={`${item.title} mini player`}
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </div>
+        <YouTubeEmbed videoUrl={item.videoUrl} title={`${item.title} mini player`} />
       </div>
     </section>
   )

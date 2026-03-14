@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { computerRoutes, folderRoutes } from '../data/archiveData'
+import { getAsset } from '../utils/getAsset'
 
 function HomePage() {
   return (
@@ -9,7 +10,7 @@ function HomePage() {
       <div className="sitemap-grid">
         {[...computerRoutes, ...folderRoutes].map((item) => (
           <Link key={item.id} to={item.path} className="sitemap-tile">
-            <img src={item.icon} alt="" className="tile-icon" loading="lazy" />
+            <img src={getAsset(item.icon)} alt="" className="tile-icon" loading="lazy" />
             <span>{item.title}</span>
           </Link>
         ))}

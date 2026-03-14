@@ -1,10 +1,11 @@
 import ReusableCarousel from '../../components/ReusableCarousel'
+import { getAsset } from '../../utils/getAsset'
 
 function HobbyDetail({ item }) {
   return (
     <section className="detail-page content-fade">
       <h2>
-        <img src={item.icon} alt="" className="inline-icon" />
+        <img src={getAsset(item.icon)} alt="" className="inline-icon" />
         {item.title}
       </h2>
 
@@ -15,7 +16,7 @@ function HobbyDetail({ item }) {
           className="photo-reel"
           renderItem={(photo) => (
             <div className="photo-card">
-              <img src={photo.image} alt={photo.caption} loading="lazy" />
+              <img src={getAsset(photo.image)} alt={photo.caption} loading="lazy" />
               <strong>{photo.caption}</strong>
             </div>
           )}

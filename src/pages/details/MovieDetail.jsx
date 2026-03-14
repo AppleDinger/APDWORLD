@@ -1,14 +1,16 @@
+import { getAsset } from '../../utils/getAsset'
+
 function MovieDetail({ item }) {
   return (
     <section className="detail-page content-fade">
       <h2>
-        <img src={item.icon} alt="" className="inline-icon" />
+        <img src={getAsset(item.icon)} alt="" className="inline-icon" />
         {item.title}
       </h2>
 
       <section className="movie-detail-grid glass-section">
         <div className="movie-poster-frame">
-          <img src={item.posterImage} alt={item.title} className="movie-poster" loading="lazy" />
+          <img src={getAsset(item.posterImage)} alt={item.title} className="movie-poster" loading="lazy" />
         </div>
 
         <div className="movie-side-panel">
