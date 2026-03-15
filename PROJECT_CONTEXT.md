@@ -42,7 +42,7 @@ Goal: Nostalgic, funny personal poster site with Frutiger Aero visual language a
 
 ## Data Model and Navigation
 - Navigation metadata: `src/data/navigationData.js`
-  - Uses exact icon mappings from `/public/icons/*`
+  - Uses icon keys resolved through `getAsset` from `src/assets/**`
   - Folders include Hobbies, Projects, Art, Movies, Music
 - Content source of truth: `src/data/siteContent.js`
   - Category object buckets keyed by `id`
@@ -78,13 +78,13 @@ Goal: Nostalgic, funny personal poster site with Frutiger Aero visual language a
 
 ## Asset Pathing and Deploy Safety
 - Asset helper: `src/utils/getAsset.js`
-  - `getAsset(path) => ${import.meta.env.BASE_URL}${path}`
+  - Resolves runtime asset keys to bundled URLs using `import.meta.glob('../assets/**/*')`
 - Most components/pages now route image/icon paths through `getAsset`
 - Wallpaper currently set in `src/App.jsx` via:
   - `getAsset('wallpapers/Win XP wallpaper.webp')`
 
 ## Known Risks / Verification Items
-1. Runtime check recommended for wallpaper extension consistency (`.webp` vs existing files in `/public/wallpapers`).
+1. Runtime check recommended for wallpaper extension consistency (`.webp` vs existing files in `src/assets/wallpapers`).
 2. End-to-end route QA still advised after large CSS and routing iterations.
 3. Verify on mobile for bottom-dock behavior, vertical card stacks, and detail page scroll continuity.
 
@@ -92,5 +92,5 @@ Goal: Nostalgic, funny personal poster site with Frutiger Aero visual language a
 1. Run local preview and sanity-check all major routes:
    - `/`, `/blog`, `/blog/:id`, `/hobbies`, `/projects`, `/art`, `/movies`, `/music`, `/:category/:id`.
 2. Confirm YouTube embed playback on music detail pages.
-3. If wallpaper is missing, align `src/App.jsx` wallpaper filename to the actual file in `/public/wallpapers`.
+3. If wallpaper is missing, align `src/App.jsx` wallpaper filename to the actual file in `src/assets/wallpapers`.
 4. Start replacing placeholder content assets/text with final personal content.
