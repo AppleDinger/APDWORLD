@@ -1,15 +1,12 @@
 export const blogPosts = {
   r1: {
-    id: 'r1',
-    title: 'I Organized My Life In Folder Names',
-    date: '2026-03-10',
-    readingTime: '4 min read',
-    excerpt: 'Current folder title: definitely_real_productivity_final_v7.',
-    image: 'assets/folder-names.svg',
-    body: [
-      'Naming folders feels like naming alternate timelines. Every suffix says something about your optimism level.',
-      'Today I made peace with version numbers and decided chaos can look beautiful if the UI is glossy enough.',
-    ],
+   id: "r1", 
+    title: "AI is a Math Box",
+    date: "Feb 11, 2026",
+    readingTime: "4 min read",
+    contentPath: "blogData/b1/r1-AI-is-a-matrix.md", 
+    excerpt: "What really goes behind those AI results. Is it voodoo or maths?",
+    image: "blogData/b1/AI_is_a_math_box.png"
   },
   r2: {
     id: 'r2',
