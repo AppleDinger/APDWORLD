@@ -15,9 +15,9 @@ function BlogDetail() {
   const postMetadata = blogList.find(p => p.id === id)
 
   // Clean the path for GitHub Pages compatibility
-  const cleanPath = postMetadata?.contentPath?.startsWith('/') 
-    ? postMetadata.contentPath.slice(1) 
-    : postMetadata?.contentPath || "";
+  const cleanPath = postMetadata?.contentPath 
+    ? postMetadata.contentPath.replace(/^(\/)?public\//, '').replace(/^\//, '')
+    : "";
   
   // Calculate the subfolder for inline markdown images
   const contentFolder = cleanPath.substring(0, cleanPath.lastIndexOf('/') + 1);
