@@ -4,7 +4,7 @@ export const blogPosts = {
     title: "AI is a Math Box",
     date: "Feb 11, 2026",
     readingTime: "4 min read",
-    contentPath: "blogData/b1/r1-AI-is-a-matrix.md", 
+    contentPath: "blogData/b1/r1-AI-is-a-math-box.md", 
     excerpt: "What really goes behind those AI results. Is it voodoo or maths?",
     image: "blogData/b1/AI_is_a_math_box.png"
   },

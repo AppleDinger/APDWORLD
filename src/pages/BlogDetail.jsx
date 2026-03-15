@@ -1,20 +1,53 @@
 import { Link, useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { blogPosts } from '../data/blogData'
+import ReactMarkdown from 'react-markdown'
+import remarkMath from 'remark-math'
+import rehypeKatex from 'rehype-katex'
+import { blogList } from '../data/blogData' 
 import { getAsset } from '../utils/getAsset'
+import 'katex/dist/katex.min.css' 
 
 function BlogDetail() {
   const { id } = useParams()
   const [loading, setLoading] = useState(true)
-  const post = blogPosts[id]
+  const [markdown, setMarkdown] = useState("")
+  
+  const postMetadata = blogList.find(p => p.id === id)
+
+  // FIX: Calculate contentFolder here so it's available everywhere in the component
+  const cleanPath = postMetadata?.contentPath?.startsWith('/') 
+    ? postMetadata.contentPath.slice(1) 
+    : postMetadata?.contentPath || "";
+  
+  const contentFolder = cleanPath.substring(0, cleanPath.lastIndexOf('/') + 1);
 
   useEffect(() => {
-    setLoading(true)
-    const timer = setTimeout(() => setLoading(false), 280)
-    return () => clearTimeout(timer)
-  }, [id])
+    if (!postMetadata) return;
 
-  if (!post) {
+    setLoading(true);
+    const filePath = `${import.meta.env.BASE_URL}${cleanPath}`;
+    
+    fetch(filePath)
+      .then(res => {
+        const contentType = res.headers.get("content-type");
+        if (!res.ok || (contentType && contentType.includes("text/html"))) {
+          throw new Error("Target file is missing or returned index.html");
+        }
+        return res.text();
+      })
+      .then(text => {
+        const cleanBody = text.replace(/^---[\s\S]*?---/, '');
+        setMarkdown(cleanBody);
+        setTimeout(() => setLoading(false), 280);
+      })
+      .catch(err => {
+        console.error("Fetch Error:", err.message);
+        setMarkdown("## Error Loading Content\nPlease check if the file exists in the public folder.");
+        setLoading(false);
+      });
+  }, [id, postMetadata, cleanPath]);
+
+  if (!postMetadata) {
     return (
       <section className="page-content content-fade">
         <h2>Post Not Found</h2>
@@ -37,13 +70,39 @@ function BlogDetail() {
         </div>
       ) : (
         <article className="reader-pane">
-          <h2>{post.title}</h2>
-          <p className="post-meta">{post.date} • {post.readingTime}</p>
-          <img src={getAsset(post.image)} alt={post.title} className="reader-cover" loading="lazy" />
+          <h2>{postMetadata.title}</h2>
+          <p className="post-meta">{postMetadata.date} • {postMetadata.readingTime}</p>
+          
+          <img 
+            src={`${import.meta.env.BASE_URL}${postMetadata.image.replace(/\\/g, '/')}`} 
+            alt={postMetadata.title} 
+            className="reader-cover" 
+            loading="lazy" 
+            style={{ borderRadius: '8px', border: '1px solid rgba(255,255,255,0.2)' }}
+          />
+
           <div className="reader-body">
-            {post.body.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
+            <ReactMarkdown 
+              remarkPlugins={[remarkMath]} 
+              rehypePlugins={[rehypeKatex]}
+              components={{
+                img: ({ src, ...props }) => {
+                  const cleanSrc = src.replace(/^(\.\/|\/)/, '');
+                  const finalSrc = `${import.meta.env.BASE_URL}${contentFolder}${cleanSrc}`;
+                  return (
+                    <img 
+                      {...props} 
+                      src={finalSrc} 
+                      className="reader-inline-img"
+                      loading="lazy"
+                      alt={props.alt || "Blog visual"}
+                    />
+                  );
+                }
+              }}
+            >
+              {markdown}
+            </ReactMarkdown>
           </div>
         </article>
       )}
